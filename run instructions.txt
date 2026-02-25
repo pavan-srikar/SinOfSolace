@@ -1,0 +1,5 @@
+cd backend
+npx tsx src/server.ts
+
+cd frontend
+npm run dev
