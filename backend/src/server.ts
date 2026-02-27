@@ -3,9 +3,9 @@ import express from 'express';
 import cors from 'cors';
 
 // 1. Correct Imports
-import authRoutes from './middleware/auth.js'; // Points to Login/Register logic
-import chatRoutes from './routes/chat.js';
-import taskRoutes from './routes/tasks.js';
+import authRoutes from './middleware/auth'; // Points to Login/Register logic
+import chatRoutes from './routes/chat';
+import taskRoutes from './routes/tasks';
 
 const app = express();
 
