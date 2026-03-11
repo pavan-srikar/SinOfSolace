@@ -109,10 +109,10 @@ export default function DashboardPage() {
   const scrollStyle = "overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-blue-600 transition-all";
 
   return (
-    <div className="flex h-screen bg-slate-950 overflow-hidden text-slate-200 font-['Ubuntu']">
+    <div className="flex h-screen bg-rpg-background overflow-hidden text-slate-200 font-['Ubuntu']">
       
       {/* SIDEBAR */}
-      <nav className="w-20 md:w-64 border-r border-white/5 flex flex-col p-4 bg-slate-900/30 shrink-0">
+      <nav className="w-20 md:w-64 border-r border-white/5 flex flex-col p-4 bg-rpg-element/90 shrink-0">
         <div className="text-blue-500 font-black text-2xl mb-10 px-4 italic tracking-tighter cursor-default">S|S</div>
         <div className="space-y-2 flex-1">
           <NavItem icon={<LayoutDashboard size={20}/>} label="Dashboard" active />
@@ -125,7 +125,7 @@ export default function DashboardPage() {
 
       <div className="flex-1 flex flex-col min-w-0">
         {/* HEADER - DYNAMIC STATS */}
-        <header className="flex justify-between items-center px-8 py-6 border-b border-white/5 bg-slate-950/40 shrink-0">
+        <header className="flex justify-between items-center px-8 py-6 border-b border-white/5 bg-rpg-element shrink-0">
           <div>
             <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Quest Log</h2>
             <p className="text-[12px] text-slate-500 font-bold uppercase tracking-widest italic">user: {userData.username}</p>
@@ -151,9 +151,9 @@ export default function DashboardPage() {
         {/* SPLIT PANES */}
         <div className="flex flex-1 overflow-hidden p-6 gap-6">
           {/* LEFT: TODAY'S GRIND */}
-          <section className="w-full md:w-[50%] flex flex-col bg-blue-600/[0.03] border border-blue-500/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
-            <div className="p-6 border-b border-white/5 bg-white/5 flex items-center justify-between">
-              <h3 className="text-xs font-black text-blue-400 uppercase tracking-[0.4em] flex items-center gap-2"><Target size={18} /> Daily Grind</h3>
+          <section className="w-full md:w-[50%] flex flex-col bg-rpg-element/70 border border-blue-500/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <div className="p-6 border-b border-white/5 bg-rpg-element flex items-center justify-between">
+              <h3 className="text-xs font-black text-red-400 uppercase tracking-[0.4em] flex items-center gap-2"><Target size={18} /> Daily Grind</h3>
               <select value={sortBy} onChange={(e: any) => setSortBy(e.target.value)} className="bg-slate-900 text-[9px] font-black uppercase px-3 py-1.5 rounded-lg border border-white/10 text-slate-400 outline-none hover:border-blue-500/50 transition-all">
                 <option value="recent">Recent</option>
                 <option value="xp">High XP</option>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
               ) : (
                 Object.keys(todayCategories).map(cat => (
                   <div key={cat} className="space-y-4">
-                    <h4 className="text-[10px] font-black text-blue-500/60 uppercase tracking-[0.2em] flex items-center gap-2 italic">{cat}</h4>
+                    <h4 className="text-[10px] font-black text-blue-300 uppercase tracking-[0.2em] flex items-center gap-2 italic">{cat}</h4>
                     <div className="grid gap-4">
                       {todayCategories[cat].map((task: any) => (
                         <TaskCard key={task.id} task={task} onComplete={completeQuest} large />
@@ -178,14 +178,14 @@ export default function DashboardPage() {
           </section>
 
           {/* RIGHT: MASTER SCROLL */}
-          <section className="hidden md:flex flex-col flex-1 bg-slate-900/10 border border-white/5 rounded-[2.5rem] overflow-hidden">
-            <div className="p-6 border-b border-white/5 bg-white/5">
-              <h3 className="text-xs font-black text-slate-600 uppercase tracking-[0.4em] flex items-center gap-2"><ListChecks size={18} /> Master Scroll</h3>
+          <section className="hidden md:flex flex-col flex-1 bg-rpg-element/70 border border-white/5 rounded-[2.5rem] overflow-hidden">
+            <div className="p-6 border-b border-white/5 bg-rpg-element">
+              <h3 className="text-xs font-black text-red-400 uppercase tracking-[0.4em] flex items-center gap-2"><ListChecks size={18} /> Master Scroll</h3>
             </div>
             <div className={`flex-1 p-6 space-y-10 ${scrollStyle}`}>
               {Object.keys(allCategories).map(cat => (
                 <div key={cat} className="space-y-4">
-                  <h4 className="text-[10px] font-black text-slate-700 uppercase tracking-widest pl-3 border-l border-slate-800">{cat}</h4>
+                  <h4 className="text-[10px] font-black text-blue-300 uppercase tracking-widest pl-3 border-l border-blue-300">{cat}</h4>
                   <div className="grid gap-3">
                     {allCategories[cat].map((task: any) => (
                       <TaskCard key={task.id} task={task} onComplete={completeQuest} />
@@ -206,11 +206,16 @@ function TaskCard({ task, onComplete, large = false }: any) {
   const isComp = task.status === 'COMPLETED';
   const hasSubTasks = task.subTasks && task.subTasks.length > 0;
   const isBigTask = task.type === 'EPIC' || task.type === 'WEEKLY';
+  const completedCount = hasSubTasks
+  ? task.subTasks.filter((s: any) => s.status === 'COMPLETED').length
+  : 0;
+
+const totalCount = hasSubTasks ? task.subTasks.length : 0;
 
   return (
     <div className="space-y-2">
       {/* MAIN TASK */}
-      <div className={`group flex items-center justify-between transition-all ${large ? 'p-6 bg-slate-900/80' : 'p-4 bg-slate-900/40'} border border-white/5 rounded-2xl hover:border-blue-500/40 shadow-lg`}>
+      <div className={`group flex items-center justify-between transition-all ${large ? 'p-6 bg-slate-900/80' : 'p-4 bg-slate-900/70'} border border-white/5 rounded-2xl hover:border-blue-500/40 shadow-lg`}>
         <div className="flex items-center gap-5">
           {/* Collapse/Expand Arrow for Big Tasks */}
           {isBigTask && hasSubTasks ? (
@@ -238,16 +243,22 @@ function TaskCard({ task, onComplete, large = false }: any) {
             Claim
           </button>
         )}
+        {hasSubTasks && isBigTask && (
+          <div className="px-6 py-2 bg-blue-600/10 text-blue-400 border border-blue-500/20 rounded-xl font-black text-[10px] uppercase">
+            {completedCount} / {totalCount}
+          </div>
+        )}
+        
       </div>
 
       {/* SUB-TASKS LIST */}
       {isExpanded && hasSubTasks && (
-        <div className="ml-10 space-y-2 border-l-2 border-slate-800/50 pl-6 pb-4 animate-in slide-in-from-top-2 duration-300">
+        <div className="ml-10 space-y-2 border-l-2 border-blue-300/40 pl-6 pb-4 animate-in slide-in-from-top-2 duration-300">
           {task.subTasks.map((sub: any) => (
-            <div key={sub.id} className="flex items-center justify-between p-3 bg-slate-900/20 border border-white/5 rounded-xl group/sub">
+            <div key={sub.id} className="flex items-center justify-between p-3 bg-slate-900/60 border border-white/5 rounded-xl group/sub">
               <div className="flex items-center gap-3">
                 <CheckCircle2 size={14} className={sub.status === 'COMPLETED' ? 'text-blue-500' : 'text-slate-700'} />
-                <span className={`text-sm font-bold ${sub.status === 'COMPLETED' ? 'text-slate-600 line-through' : 'text-slate-300'}`}>
+                <span className={`text-base font-bold ${sub.status === 'COMPLETED' ? 'text-slate-600 line-through' : 'text-slate-300'}`}>
                   {sub.title}
                 </span>
               </div>

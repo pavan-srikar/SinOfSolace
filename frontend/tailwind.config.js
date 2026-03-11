@@ -14,6 +14,9 @@ export default {
             card: "#0f172a",
             accent: "#3b82f6",
             gold: "#fbbf24",
+            background: "#5B7DA7",
+            element: "#152241",
+            txt_blue: "#60A5FA",
             }
         }
     },
