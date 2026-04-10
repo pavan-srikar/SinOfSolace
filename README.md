@@ -17,7 +17,8 @@ npm run dev
 
 ### video demo
 
-[![Watch the video](images/dashboard.png)](images/video_demo.mp4)
+[![Watch](https://img.youtube.com/vi/UO4M5LfoHkI/0.jpg)](https://youtu.be/UO4M5LfoHkI)
+
 
 
 ### images
