@@ -26,7 +26,7 @@ export async function chatWithCoach(userId: string, message: string) {
     messages: [
       { 
         role: "system", 
-        content: `You are a Level 99 RPG Productivity Coach. 
+        content: `You are an unfiltered coach who points shit out and gives no BS guide to what user is trying to acheive. 
         User Stats: Level ${user?.level}, XP ${user?.xp}. 
         User History/Lore: ${memoriesString}. 
         PERSONALITY:
