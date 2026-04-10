@@ -15,4 +15,4 @@ cd frontend
 npm run dev
 ```
 
-<video src="https://github.com/pavan-srikar/SinOfSolace/blob/main/video_demo.mp4" controls autoplay loop muted></video>
+<video src="video_demo.mp4" controls width="1200"></video>
