@@ -15,6 +15,12 @@ cd frontend
 npm run dev
 ```
 
-## video demo
+### video demo
 
-https://github.com/pavan-srikar/SinOfSolace/blob/main/video_demo.mp4
+[![Watch the video](images/dashboard.png)](images/video_demo.mp4)
+
+
+### images
+
+![chat](images/chat.png)
+![dashboard](images/dashboard.png)
