@@ -7,7 +7,8 @@ no the npm install and .env then
 
 ```
 cd backend
-npx tsx src/server.ts
+# npx tsx src/server.ts # not needed
+npm run dev
 ```
 
 ```
